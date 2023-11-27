@@ -4,9 +4,10 @@ const axios = require('axios')
 const readline = require('readline');
 const keypress = require('keypress');
 
+const useReadline = false
 
 var tv = new TV();
-tv._options.ip = '192.168.1.133'
+tv._options.ip = process.argv[3] || '192.168.1.133'
 
 tv.execute = function(requestUrl, requestMethod, requestHeaders, requestData) {
     // Make the HTTP request using axios
@@ -37,7 +38,7 @@ const rl = readline.createInterface({
   
   // Prompt the user for input
   function ask(){
-    if(false){
+    if(useReadline){
         rl.question('Enter cmd: ', (userInput) => {
             console.log(`You entered: ${userInput}`);
         
@@ -47,10 +48,10 @@ const rl = readline.createInterface({
 
             if(userInput == 'ret') cmd = 'NRC_RETURN-ONOFF'
 
-            if(userInput == 'su') cmd = 'NRC_UP-ONOFF'
-            if(userInput == 'giu') cmd = 'NRC_DOWN-ONOFF'
-            if(userInput == 'des') cmd = 'NRC_RIGHT-ONOFF'
-            if(userInput == 'sin') cmd = 'NRC_LEFT-ONOFF'
+            if(userInput == 'up') cmd = 'NRC_UP-ONOFF'
+            if(userInput == 'down') cmd = 'NRC_DOWN-ONOFF'
+            if(userInput == 'right') cmd = 'NRC_RIGHT-ONOFF'
+            if(userInput == 'left') cmd = 'NRC_LEFT-ONOFF'
 
             if(cmd)
                 tv.sendCommand(cmd)
